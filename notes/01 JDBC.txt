@@ -1,0 +1,96 @@
+Advanced Java:
+==============
+i. JDBC
+ii. Servlets
+iii. Servlet Listners
+iv. Filters
+v. JSP
+vi. MVC
+
+Day-3
+=====
+JDBC
+======
+    - JDBC stands for java database connectivity.
+    - JDBC is a specification for developing database applications by using
+      java programming language.
+
+Database application
+=====================
+    - An application that communicates with database is known as Database application.
+
+Application 
+============
+    - An Application is a program in which we interact with on the desktop.
+
+Database
+========
+    - A Database is a software and it is collection of organized inter-related data of a 
+      particular organization.
+       Ex: oracle, MySQL, PostGreSQL, MongoDB, SQLserver etc......
+    - data organized in a database in the form of tables.
+    - each table contains fields and records.
+
+Database software contains 2 parts
+===================================
+i. Database Application
+    Ex: SQL Plus
+ii. Database
+    Ex: Oracle
+
+- Database application communicating with database by using SQL.
+- SQL Stands for Structured Query language
+- SQL is a language and it is used by application to communicate with DB.
+- Application is a frontend and Database is a backend.
+- Application can also be called as client and Database can also be called as server.
+
+client
+=======
+    - A client is a software that send a request to a server to get response.
+
+server
+======
+    - A server is a software that receives request from a client, process the 
+      request, construct the response & sends the response back to a client.
+
+Day-4
+=====
+Driver:
+=======
+    - Driver is a software and it is used to connect application and database.
+    - There are 2 catagories of drivers:
+        i. ODBC Driver [open database connectivity drivers]
+        ii. JDBC Driver [java database connectivity drivers]
+    - Non-java applications and databasees were connected by using ODBC-drivers.
+    - All ODBC drivers are the part of ODBC tool.
+
+                                          ------ODBC driver for oracle <---------> oracle database
+                                          |
+    Non-java            <---->ODBC tool  <------>ODBC driver for MySQL <---------> MySQL database
+    Application                           |
+                                          ------ODBC driver for _______ <---------> _______ database
+    
+    - connection failed between java application and ODBC tool because of compatibility issues.
+    - To solve the above problem JDBC drivers were introduced.
+
+There are 4 types of drivers:
+=============================
+i. Type-1 driver [JDBC ODBC Bridge driver]
+ii. Type-2 driver [JDBC native API driver]
+iii. Type-3 driver [JDBC network protocol driver]
+iv. Type-4 driver [JDBC 100% pure java driver]
+
+- There are 2 ways to connect java application and database
+    i. by using JDBC and ODBC drivers.
+    ii. by using only JDBC drivers.
+
+                                    Type-1 driver
+                                        |                      -----------
+                  |<-----JDBC driver<---->ODBC driver<------>  |          |
+    java          |                                            |Database  |
+    application   |                                            |          |
+                  |<------------>JDBC Driver<--------------->  ------------
+                                        |
+                         Type-2 driver or Type-4 Driver
+
+Note: All JDBC drivers are classes in java.

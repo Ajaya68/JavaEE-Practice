@@ -57,18 +57,18 @@ Day-4
 =====
 Driver:
 =======
-    - Driver is a software and it is used to connect application and database.
+    - Driver is a software and it is used to connect the application and database.
     - There are 2 catagories of drivers:
         i. ODBC Driver [open database connectivity drivers]
         ii. JDBC Driver [java database connectivity drivers]
     - Non-java applications and databasees were connected by using ODBC-drivers.
     - All ODBC drivers are the part of ODBC tool.
 
-                                          ------ODBC driver for oracle <---------> oracle database
-                                          |
-    Non-java            <---->ODBC tool  <------>ODBC driver for MySQL <---------> MySQL database
-    Application                           |
-                                          ------ODBC driver for _______ <---------> _______ database
+                                   ------ODBC driver for oracle <---------> oracle database
+                                   |
+    Non-java     <---->ODBC tool  <------>ODBC driver for MySQL <---------> MySQL database
+    Application                    |
+                                   ------ODBC driver for _______ <---------> _______ database
     
     - connection failed between java application and ODBC tool because of compatibility issues.
     - To solve the above problem JDBC drivers were introduced.
@@ -94,3 +94,175 @@ iv. Type-4 driver [JDBC 100% pure java driver]
                          Type-2 driver or Type-4 Driver
 
 Note: All JDBC drivers are classes in java.
+
+Day-5
+=====
+Specification:
+==============
+    - A specification is a set of rules and guidelines that are used to develop
+      application and environment.
+
+    - JDBC Specification used by venders[companies] to develop JDBC driver and JDBC 
+      specification used by java programmers to develop database applications.
+
+Type-1 Driver [JDBC ODBC bridge driver]:
+========================================
+Driver Class Name:
+==================
+    sun.jdbc.odbc.JdbcOdbcDriver
+
+Driver venders:
+===============
+    -sun microsystems
+
+driver location:
+================
+    -it is a part if JDK software.
+
+------------------------------------------Type-1 Driver---------------------------------------------
+          | Type-1 JDBC Driver     ------ODBC driver for oracle <---------> oracle database
+          |                |       |
+        java     <--X-->ODBC tool  <------>ODBC driver for MySQL <---------> MySQL database
+    Application                    |
+                                   ------ODBC driver for _______ <---------> _______ database
+
+Type-1 Driver Functionality:
+============================
+    -it converts java calls into ODBC callls.
+
+Type-1 driver architecture:
+===========================
+    ------------------
+    |Java Application|
+    |                |
+    | |Application|  |                                                 |        |
+    | |  Code     |  |                                                 |Database|        
+    |                |<-------->ODBC tool<--------->ODBC Driver<------>|        |
+    | | Type-1    |  |                                                 |        |
+    | | JDBC ODBC |  |
+    | | Bridge    |  |
+    | | Driver    |  |
+    ------------------
+
+Type-1 Driver advantages:
+=========================
+    -only one driver that supports all odbc enabled databases.
+
+Type-1 Driver Disadvantages:
+============================
+    -performance overhead since java calls should go through via jdbc and odbc drivers.
+    -platform dependent because Type-1 driver is developed in "c-language".
+    -database client software[odbc] needs to be installed in local system.
+
+Note: Type-1 driver removed from JDK 1.8 & onwards.
+
+Type-2 Driver [JDBC native API driver]:
+=======================================
+    - it is also called as partial java driver or partly java - partly native driver.
+    -Type-2 driver were developed in java language and native language.
+        Ex: c & c++
+    
+------------------------------------------Type-2 or Type-4 Driver---------------------------------
+                                   ------JDBC driver for oracle <---------> oracle database
+                                   |
+        java            <----------|------>jdbc driver for MySQL <---------> MySQL database
+    Application                    |
+                                   ------JDBCDBC driver for _______ <---------> _______ database
+
+Steps to develop database application:
+======================================
+    - loading a specific jdbc driver.
+    - estblishing a connection between java application and database.
+    - performing the task.
+    - closing a connection.
+
+Day-6
+=====
+JDBC API
+========
+    -JDBC API is a java API that can access any kind of tabular data and data especially
+     stored in RDBMS.
+    -java library is called as java API, because it is an interface between application
+     and programming language.
+
+    i. java.sql package
+    ii. javax.sql package
+    iii. javax.sql.rowset package
+
+
+java.sql package:
+===================
+classes             interface
+=================   ===========
+i. DriverManager    Driver
+ii. SQLException    Connection 
+iii. Types          Statement
+iv. Data            PreparedStatement
+v. Time             CallableStatement
+vi.                 Resultset
+vii.                ResultsetMetaData
+viii.               DatabaseMetaData
+ix.                 Blob
+x.                  Clob
+
+javap:
+=======
+    -it is used to get the profile of a class or interface.
+    -Profile containes list of variables, methods and constructors.
+
+    Ex: c:\>javap.lang.String
+        -it shows the list of variables, methods and constructors of java.lang.String class.
+
+    -Description of variables, methods and constructors available in java API Documentation.
+
+
+    1st Step
+    =========
+    java.lang.Class
+
+    Method:
+        public static Class forName(String) throws ClassNotFoundException;
+    - it is used to load driver class.
+    
+    2nd Step
+    ========
+    java.sql.DriverManager
+
+    Method:
+        public static Connection getConnection(String,String,String) throws SQLException;
+                                                |       |       |
+                                               url  username  password
+    -it is used to establish the connection between java application and database.
+
+Type-2 driver class name for oracle database:
+=============================================
+oracle.jdbc.driver.OracleDriver
+    |   |   |           |
+package subpackage  Class name
+
+Driver Vendor:
+==============
+oracle corporation
+
+Driver Location:
+================
+it is in oracle software.
+
+URL to access the driver:
+=========================
+        jdbc:oracle:oci8:@service-id 
+        |     |     | 
+        pro     sub   logical name
+        tocol   protocol
+    -OCI stands for oracle call interface
+
+To get service id, use the following sql Query:
+===============================================
+SQL>select * from global_name;
+
+
+
+
+
+
+

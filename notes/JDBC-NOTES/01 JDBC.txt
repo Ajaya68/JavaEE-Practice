@@ -216,16 +216,16 @@ javap:
     -Description of variables, methods and constructors available in java API Documentation.
 
 
-    1st Step
-    =========
+    1st Step - loading a specific JDBC driver
+    =========================================
     java.lang.Class
 
     Method:
         public static Class forName(String) throws ClassNotFoundException;
     - it is used to load driver class.
     
-    2nd Step
-    ========
+    2nd Step - establishing a connection
+    ====================================
     java.sql.DriverManager
 
     Method:
@@ -251,9 +251,9 @@ it is in oracle software.
 URL to access the driver:
 =========================
         jdbc:oracle:oci8:@service-id 
-        |     |     | 
-        pro     sub   logical name
-        tocol   protocol
+        |     |       | 
+    protocol sub   logical name
+            protocol
     -OCI stands for oracle call interface
 
 To get service id, use the following sql Query:
@@ -261,8 +261,42 @@ To get service id, use the following sql Query:
 SQL>select * from global_name;
 
 
+Day-7
+======
+Type-2 driver Functionality
+===========================
+    -it converts java calls into native calls.
 
+Advantages 
+==========
+    -it is fast as compared to type-1 driver
+Disadvantag
+============
+    -Separate driver needed for every database.
+    -Database software needs to be installed on same computer.
+    -All databases are not having type-2 drivers.
+    -It is a platform dependent.
 
+Type-3 Driver
+=============
+    -JDBC network protocol driver.
+    -it also called as JDBC net pure java driver (or) middleware driver.
+    -Type-3 driver developed in java language only.
+
+Type-3 Driver Functionality
+===========================
+    -it passes the java instruction to middleware system.
+
+Advantages
+==========
+    -Here java calls are database independent from local system to
+     middleware system.
+    -Database software is not needed on local system.
+    -It is a platform independent.
+
+Disadvantages
+=============
+    -Extra layes added in this architecture i.e. middleware system.
 
 
 

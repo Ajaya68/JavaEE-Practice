@@ -267,6 +267,25 @@ Type-2 driver Functionality
 ===========================
     -it converts java calls into native calls.
 
+Connection using Type-2 Driver
+===============================
+import java.sql.*;
+
+public class EstablishingConnectionUsingType_2 {
+
+    public static void main(String[] args) {
+        try {
+            Class c = Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection("jdbc:oracle:oci8:@orcl", "SYSTEM", "LION");
+            System.err.println("Connection Established successfully");
+        } catch (ClassNotFoundException ce) {
+            System.err.println(ce);
+        } catch (SQLException se) {
+            System.err.println(se);
+        }
+    }
+}
+
 Advantages 
 ==========
     -it is fast as compared to type-1 driver
@@ -296,7 +315,97 @@ Advantages
 
 Disadvantages
 =============
-    -Extra layes added in this architecture i.e. middleware system.
+    -Extra layer added in this architecture i.e. middleware system.
+
+Day-8
+======
+Type-4 Driver(JDBC 100% pure java driver):
+==========================================
+    -it is also called as JDBC native protocol driver (or) thin driver.
+
+Type-4 Driver class name for oracle database:
+=============================================
+oracle.jdbc.driver.OracleDriver
+
+URL:
+====
+jdbc:oracle:thin:@domain-name:port-number:service-id
+
+    -if the database software installed on same computer then use localhost as a domain name
+     otherwise use computer name as a domain name.
+    -Port numbers are used to identify the service.
+    -Reserved port number are 0 to 1023.
+    -Free port number are 1024 to 65535.
+
+    -Oracle server port number is 1521.
+
+    -To get service id,use following sql query.
+        select * from global_name;
+
+Connection using Type-4 Driver
+===============================
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class TypeFourDriverConnection {
+    public static void main(String[] args) {
+        try {
+            Class c = Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con =  DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","SYSTEM","LION");
+            IO.println("Connection Established successfully");
+        } catch (ClassNotFoundException | SQLException ce) {
+            System.err.println(ce);
+        }
+    }
+}
+
+
+Type-4 Driver Functionality:
+============================
+    -it passes the java instruction directly to da database.
+
+Advantages:
+===========
+    -it is a highest performance driver as compared to all other drivers.
+    -it is platform independent because developed in java language only.
+    -database software not needed on same system.
+
+Disadvantag
+============
+    -separate driver needed for every database.
+
+Note: if the application required more then one database then use
+      type-3 driver otherwise type-4 driver.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

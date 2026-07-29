@@ -158,7 +158,7 @@ Note: Type-1 driver removed from JDK 1.8 & onwards.
 
 Type-2 Driver [JDBC native API driver]:
 =======================================
-    - it is also called as partial java driver or partly java - partly native driver.
+    -it is also called as partial java driver or partly java - partly native driver.
     -Type-2 driver were developed in java language and native language.
         Ex: c & c++
     
@@ -238,7 +238,7 @@ Type-2 driver class name for oracle database:
 =============================================
 oracle.jdbc.driver.OracleDriver
     |   |   |           |
-package subpackage  Class name
+package subpackage  ClassName
 
 Driver Vendor:
 ==============
@@ -344,26 +344,30 @@ jdbc:oracle:thin:@domain-name:port-number:service-id
 
 Connection using Type-4 Driver
 ===============================
+package jdbc;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class TypeFourDriverConnection {
+public class ConnectionUsingTypeFour {
     public static void main(String[] args) {
+        String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+        String userName = "MYDB4PM";
+        String password = "MYDB4PM";
         try {
-            Class c = Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con =  DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","SYSTEM","LION");
-            IO.println("Connection Established successfully");
-        } catch (ClassNotFoundException | SQLException ce) {
-            System.err.println(ce);
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(url, userName, password);
+            IO.println("Connection Established Successfully");
+        } catch (ClassNotFoundException | SQLException e) {
+            System.err.println(e);
         }
     }
 }
 
-
 Type-4 Driver Functionality:
 ============================
-    -it passes the java instruction directly to da database.
+    -it passes the java instruction directly to database.
 
 Advantages:
 ===========
@@ -377,6 +381,64 @@ Disadvantag
 
 Note: if the application required more then one database then use
       type-3 driver otherwise type-4 driver.
+
+Day-9
+=====
+Connection Interface Methods:
+=============================
+i. public abstract Statement createStatement() throws SQLException; 
+ii. public abstract PreparedStatement prepareStatement(String) throws SQLException; 
+iii. public abstract CallableStatement prepareCall(String) throws SQLException; 
+
+Note: All JDBC interfaces are implemented in JDBC driver software by vendors.
+
+Statement interface: 
+===================
+    -It is used to execute static SQL queries. 
+
+PreparedStatement interface: 
+============================
+    -It is used to execute dynamic SQL queries. 
+
+CallableStatement interface: 
+=============================
+    -It is used to execute PL/SQL programs. 
+
+Methods of Statement interface:
+================================ 
+    -public abstract boolean execute(String) throws SQLException; 
+    -public abstract int executeUpdate(String) throws SQLException; 
+    -public abstract ResultSet executeQuery(String) SQLException;
+
+execute() method:
+=================
+    -it is used to execute non select sql queries.
+    -it is suitable for DDL query only.
+        Ex: create, alter, drop, rename,truncate etc...
+
+executeUpdate() method:
+=======================
+    -it is also used to execute non select sql queries.
+    -it is suitable for execute DML queries.
+        Ex: INSERT, UPDATE, DELETE etc...
+
+executeQuery() method:
+=======================
+    -it is used to execute select queries.
+    -it is suitable execute DQL queries.
+        Ex: select.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

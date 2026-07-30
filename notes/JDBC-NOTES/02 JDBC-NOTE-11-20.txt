@@ -1,0 +1,94 @@
+Day-11
+======
+Program: JDBC Program to create table using type-4 driver
+==========================================================
+package jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class CreateTable {
+    public static void main(String[] args) {
+        String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+        String username = "MYDB4PM";
+        String password = "MYDB4PM";
+
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(url, username, password);
+            IO.println("Connection Established Successfully");
+            Statement stmt = con.createStatement();
+            stmt.execute("create table student(rollno number(3),name varchar2(20),marks number(3))");
+            IO.println("Table Created Successfully");
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+-In the above program java code executed under JRE and sql code executed
+ under oracle database software.
+
+Program: /*JDBC Program to insert data into table. */
+========================================================
+package jdbc;
+
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Connection;
+
+public class InsertData {
+    public static void main(String[] args) {
+        String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+        String username = "MYDB4PM";
+        String password = "MYDB4PM";
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(url, username, password);
+            IO.println("Connection Established Successfully....");
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate("insert into student values(101,'Ajaya',100)");
+            IO.println("1 Row inserted.......");
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+program: /*Retrive Data from table */
+======================================
+package jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class RetriveData {
+    public static void main(String[] args) {
+        String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+        String userName = "MYDB4PM";
+        String password = "MYDB4PM";
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection(url, userName, password);
+            IO.println("Connection Established Successfully");
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from student");
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+ResultSet:
+==========
+    -ResultSet is an object that encapsulate set of rows from database.
+    -ResultSet is generated based on SQL query.
+
+
+

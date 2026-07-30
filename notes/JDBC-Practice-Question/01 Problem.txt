@@ -1,0 +1,71 @@
+Level 1: Basic Questions
+========================
+What is JDBC? What does JDBC stand for?
+    Ans: jdbc stands for java database connectivity. it is a specification used to develop database application by using java programming language.
+
+What is a database application?
+    Ans: an application that communicate with database is known as database application.
+
+What is the difference between an application and a database?
+    Ans: an application is a program on which we interact on the desktop. Ex: SQL Plus
+     whereas database is a software. it is an organized collection of data. Ex: Oracle
+
+What is SQL? Why is it required in JDBC?
+    Ans: SQL stands for Structured query language used to communicate with database application.
+
+What is the difference between a client and a server?
+    Ans: client is a software that sends request and get response from the server.
+    server is a software that receives request, process the request, construct the response and send back response to the client.
+
+What is a JDBC driver?
+    Ans: jdbc driver is used to connect java application with database.
+
+What is the purpose of a JDBC driver?
+    Ans: jdbc driver is used to connect java application with database.
+
+What is ODBC? Expand ODBC.
+    Ans: ODBC stands for open database connectivity. before jdbc non java application are connected with database by using ODBC driver.
+
+Why was JDBC introduced?
+    Ans:  By using ODBC driver connecting java application with database becomes failure, due to compatibility issues,to overcome that jdbc was introduced.
+
+What are the four types of JDBC drivers?
+    Ans: i.type-1 [jdbc odbc bridge driver]
+        ii.type-2 [jdbc native api driver]
+        iii.type-3 [jdbc network protocol driver]
+        iv.type-4 [jdbc 100% pure java driver]
+
+What is a JDBC specification?
+    Ans:specification means set of rules and guidelines to develop application and environment.
+    jdbc specification used by vendors to develop jdbc driver whereas jdbc specification used by developers to develop database application.
+
+Who uses the JDBC specification?
+    Ans: jdbc specification used by vendors to develop jdbc driver whereas jdbc specification used by developers to develop database application.
+
+What is JDBC API?
+    Ans:API stands for application programming interface.
+    jdbc api is a java api that can access any kind of tebular data and data especially stored in RDBMS.
+    java library is called java api, because it act as a intermediate between java language and application.
+
+Name the important packages of JDBC API.
+    Ans: java.sql
+        javax.sql
+        javax.sql.rowset
+
+What is the purpose of the java.sql package?
+    Ans: it containes specific classes , methods and interfaces for jdbc application.
+
+What is javap?
+    Ans: to get profile of the classes and interfaces.
+
+What information can be obtained using javap?
+    Ans: description of the variables, methods, classes and interfaces.
+
+What is the purpose of Class.forName()?
+    Ans: for loading a specific jdbc driver.
+
+What is the purpose of DriverManager.getConnection()?
+    Ans: for establishing connection with database.
+
+What are the parameters required by getConnection()?
+    Ans: url,username,password

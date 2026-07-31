@@ -427,6 +427,8 @@ executeQuery() method:
     -it is used to execute select queries.
     -it is suitable execute DQL queries.
         Ex: select.
+    -The executeQuery() return type represents records returned by given select query.
+    -ReasultSet represents returned by given select query.
 
 
 

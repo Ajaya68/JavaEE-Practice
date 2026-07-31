@@ -2,93 +2,206 @@ Day-11
 ======
 Program: JDBC Program to create table using type-4 driver
 ==========================================================
-package jdbc;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-public class CreateTable {
-    public static void main(String[] args) {
-        String url = "jdbc:oracle:thin:@localhost:1521:orcl";
-        String username = "MYDB4PM";
-        String password = "MYDB4PM";
-
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con = DriverManager.getConnection(url, username, password);
-            IO.println("Connection Established Successfully");
-            Statement stmt = con.createStatement();
-            stmt.execute("create table student(rollno number(3),name varchar2(20),marks number(3))");
-            IO.println("Table Created Successfully");
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
-}
+    go to CreateTable.java Program.
 
 -In the above program java code executed under JRE and sql code executed
  under oracle database software.
 
 Program: /*JDBC Program to insert data into table. */
 ========================================================
-package jdbc;
-
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Connection;
-
-public class InsertData {
-    public static void main(String[] args) {
-        String url = "jdbc:oracle:thin:@localhost:1521:orcl";
-        String username = "MYDB4PM";
-        String password = "MYDB4PM";
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con = DriverManager.getConnection(url, username, password);
-            IO.println("Connection Established Successfully....");
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate("insert into student values(101,'Ajaya',100)");
-            IO.println("1 Row inserted.......");
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
-}
-
-program: /*Retrive Data from table */
-======================================
-package jdbc;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-public class RetriveData {
-    public static void main(String[] args) {
-        String url = "jdbc:oracle:thin:@localhost:1521:orcl";
-        String userName = "MYDB4PM";
-        String password = "MYDB4PM";
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con = DriverManager.getConnection(url, userName, password);
-            IO.println("Connection Established Successfully");
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from student");
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
-}
+    Go to InsertData.java Program.
 
 ResultSet:
 ==========
-    -ResultSet is an object that encapsulate set of rows from database.
-    -ResultSet is generated based on SQL query.
+    -ResultSet is an object used to store and retrieve the data returned by a SQL query. 
+    -When we execute a SELECT statement using a Statement or PreparedStatement, 
+     the database returns the result in the form of a ResultSet.
+    -ReasultSet object will maintain a cursor which will point to current row.
+    -initially ResultSet cursor will point before first row. we need to move the cursor
+     to next position by calling next() method.
+    
+Important ResultSet Methods
+=============================
+Method	            Purpose
+======              ========
+boolean next()      Moves the cursor to the next row
+int getInt()        Retrieves an integer value
+String getString()	Retrieves a string value
+double getDouble()	Retrieves a double value
+getDate()	        Retrieves a SQL date
+getObject()	        Retrieves a value as an Object
+wasNull()	        Checks whether the last retrieved value was SQL NULL
+close()	            Closes the ResultSet
+
+ResultSet Cursor
+==================
+    -When a ResultSet is created, its cursor is initially positioned before the first row.
+
+        while (rs.next()) {
+            System.out.println(rs.getString("name"));
+        }
+
+    -Each call to next() moves the cursor to the next row.
+
+program: /*Retrive Data from table */
+======================================
+
+Go to RetriveData.java program
+
+=================================================================================
+PreparedStatement Interface:
+============================
+    -PreparedStatement is an interface in JDBC used to execute precompiled, parameterized 
+     SQL statements. 
+    -It uses ? placeholders for dynamic values and provides setXXX() methods to assign 
+     values to those parameters. 
+    -It can be used for SELECT, INSERT, UPDATE, and DELETE operations and helps prevent 
+     SQL injection.
+    
+Why do we use PreparedStatement?
+=================================
+    -Suppose we want to insert student data.
+
+Using Statement:
+
+    String sql = "insert into student values(101, 'Ajaya', 85)";
+    Statement stmt = con.createStatement();
+    stmt.executeUpdate(sql);
+
+Here, the values are directly written into the SQL string.
+With PreparedStatement:
+
+String sql = "insert into student values(?,?,?)";
+PreparedStatement pstmt = con.prepareStatement(sql);
+pstmt.setInt(1, 101);
+pstmt.setString(2, "Ajaya");
+pstmt.setInt(3, 85);
+pstmt.executeUpdate();
+
+This is cleaner and safer.
+
+Creating PreparedStatement
+==========================
+    -We create a PreparedStatement using the Connection object:
+
+    PreparedStatement pstmt = con.prepareStatement("insert into student values(?,?,?)");
+
+    -The ? symbols are called parameter placeholders.
+
+For example:
+============
+insert into student values(?,?,?)
+
+means:
+
+       ?       ?       ?
+       ↓       ↓       ↓
+    rollno    name    marks
+
+Setting values
+===============
+    -We use setXXX() methods to provide values for the placeholders.
+
+    pstmt.setInt(1, 101);
+    pstmt.setString(2, "Ajaya");
+    pstmt.setInt(3, 85);
+
+    -The first argument represents the parameter position.
+        1 → first ?
+        2 → second ?
+        3 → third ?
+
+So:
+pstmt.setInt(1, 101);
+means:
+First ? = 101
+And:
+pstmt.setString(2, "Ajaya");
+means:
+Second ? = "Ajaya"
+
+Important set methods
+=====================
+Some commonly used methods are:
+
+Method	        Used for
+======          ==========
+setInt()	    NUMBER / integer
+setString()	    VARCHAR2 / String
+setDouble()	    Decimal values
+setFloat()	    Float values
+setLong()	    Long values
+setDate()	    SQL date
+setBoolean()    Boolean
+setNull()	    SQL NULL
+setObject()	    General Java object
+
+Example:
+
+pstmt.setInt(1, 101);
+pstmt.setString(2, "Ajaya");
+pstmt.setDouble(3, 85.5);
+
+Program: Insert a record using prepareStatement interface
+=========================================================
+    Go to DynamicInsert.java program 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Static SQL query:
+=================
+-create table student(student_id number,Name varchar2(20),marks number);
+-insert into student values(value,value,value);
+-select * from student where student_id=value;
+
+Dynamic sql query:
+==================
+-insert into student values(?,?,?);
+-select * from student where student_id =?;
+
+
+
+
+
+
+
+
+
+CallableStatement Interface:
+============================
+    -it is used to execute pl/sql programs.
+        Ex: procedures & functions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -18,7 +18,15 @@ public class RetriveData {
             Connection con = DriverManager.getConnection(url, userName, password);
             IO.println("Connection Established Successfully");
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from student");
+            ResultSet rs = stmt.executeQuery("select rollno,name,marks from student");
+
+            while (rs.next()) {
+                int rollno = rs.getInt("rollno");
+                String name = rs.getString("name");
+                int marks = rs.getInt("marks");
+
+                IO.println(rollno + " " + name + " " + marks);
+            }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

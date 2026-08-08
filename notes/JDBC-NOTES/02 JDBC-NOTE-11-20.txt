@@ -35,7 +35,7 @@ close()	            Closes the ResultSet
 
 ResultSet Cursor
 ==================
-    -When a ResultSet is created, its cursor is initially positioned before the first row.
+    -When a ResultSet is created, its cursor is initially pointed before the first row.
 
         while (rs.next()) {
             System.out.println(rs.getString("name"));
@@ -147,24 +147,6 @@ Program: Insert a record using prepareStatement interface
     Go to DynamicInsert.java program 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Static SQL query:
 =================
 -create table student(student_id number,Name varchar2(20),marks number);
@@ -177,17 +159,160 @@ Dynamic sql query:
 -select * from student where student_id =?;
 
 
-
-
-
-
-
-
-
 CallableStatement Interface:
 ============================
     -it is used to execute pl/sql programs.
         Ex: procedures & functions.
+
+            Statement 
+                |
+            PreparedStatement
+                |
+            CallableStatement
+
+procedure to insert data into student table:
+============================================
+Go to :     InsertUsingPreparedStatement.java
+
+
+Batch Updates: 
+==============
+    -This feature allows to execute more than one sql query at a time. 
+    -It is also called as batch processing. 
+
+Methods:
+    public abstract void addBatch(String) throws SQLException; 
+        =>It is used to add SQL query 
+    public abstract int[] executeBatch() throws SQLException; 
+        =>It is used to execute all SQL queries
+     
+Batch program:
+==============
+go to : BetchProgram.java
+
+Advanced Data Types:
+====================
+    i.BLOB
+    ii.CLOB
+
+BLOB:
+=====
+    -it stands for binary large object.
+    -it is used to store/retrive large amount of binary data as a single entity
+     in/from database.
+    -it supports all type of data i.e. text, image, audios, videos, graphics, animation etc....
+
+CLOB:
+=====
+    -it stands for character large object.
+    -it is used to store/retrieve large amount of character data as a single entity
+     in/from database.
+    -it supports text only.
+
+Methods:
+========                        
+                                
+public abstract void setBinaryStream(int, InputStream, int) throws SQLException;
+int -parameter index
+InputStream- byte stream reference
+int-stream length
+
+public abstract void setCharacterStream(int, Reader, int) throws SQLException;
+int -parameter index
+Reader- character stream reference
+int-stream length
+
+Program:
+=========
+go to AdvancedDataType.java
+
+Rowsets: 
+========
+    -A rowset is an object that encapsulates set of rows from database. 
+    -Rowset is generated based on sql query. 
+    -Whenever rowset is generated then rowset pointer or cursor points to 
+     before first record.
+    
+There are 5 rowsets: 
+=====================
+    -JdbcRowSet 
+    -CachedRowSet 
+    -WebRowSet 
+    -FilteredRowSet 
+    -JoinRowSet 
+The above rowsets are interfaces in javax.sql.rowset package. 
+
+The differences between ResultSet & Rowsets: 
+===============================================
+ResultSet                               Rowsets 
+==========                              =======
+i.It is a non serializable object.      i.All rowsets are serializable objects. 
+ii.It is a connected object.            ii.JdbcRowSet is a connected object and 
+                                           remaining rowsets are disconnected objects. 
+iii.It is not a javabean.               iii.All rowsets are javabeans. 
+iv.In order to get ResultSet we         iv.In order to get RowSet we need    
+   need Connection interface,              RowSet implementation class only. 
+   DriverManager class &  
+   Statement interface. 
+
+
+Serialization:
+=============== 
+-A serialization is a process of converting object into a series of bits. 
+-In Java, object must be serializable to do the following operations: 
+
+    -Writing an object to a file. 
+    -Reading an object from file. 
+    -Writing an object to a network. 
+    -Reading an object from network. 
+
+-Class must implements java.io.Serializable interface to make serializable object. 
+-java.io.Serializable interface is a marker interface, tag interface or empty 
+ interface because it does not contain members. 
+
+ Ex:
+        class Emp implements Serializable{
+            int empNo;
+            String name;
+            float salary;
+        }
+        Emp e= new Emp();  //it is serializable object.
+
+Connected Object: 
+=================
+-Connected object means the object always being connected to a database.
+
+Java Bean: 
+==========
+-A Java bean is a reusable software component. 
+-A Java class is said to be java bean if it follows the following rules: 
+    -Class must be public 
+    -Class must implements java.io.Serializable interface 
+    -Class must be under package. 
+    -Class must contain one public default constructor. 
+    -All instance variables must be private(Instance variables are called properties). 
+    -Each & every property must contain setter & getter methods. 
+    -All setter & getter methods must be public. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,12 +1,12 @@
-Advanced Java:
-==============
+                            Advanced Java:
+=============================================================================
 i. JDBC
 ii. Servlets
 iii. Servlet Listners
 iv. Filters
 v. JSP
 vi. MVC
-
+=============================================================================
 Day-3
 =====
 JDBC
@@ -128,7 +128,7 @@ driver location:
 
 Type-1 Driver Functionality:
 ============================
-    -it converts java calls into ODBC callls.
+    -it converts java calls into ODBC calls.
 
 Type-1 driver architecture:
 ===========================
@@ -169,6 +169,7 @@ Type-2 Driver [JDBC native API driver]:
     Application                    |
                                    ------JDBCDBC driver for _______ <---------> _______ database
 
+======================================
 Steps to develop database application:
 ======================================
     - loading a specific jdbc driver.
@@ -431,6 +432,29 @@ executeQuery() method:
     -ReasultSet represents returned by given select query.
 
 
+Q.why string is immutable in java
+=================================
+    -String is immutable in Java for security, thread safety, caching, and performance. 
+    -Once a String object is created, its value cannot be changed. If we modify it, 
+ Java creates a new String object instead.
+
+Example:
+    String s = "Hello";
+    s = s + " World";
+
+    -Here, "Hello" is not changed; a new String "Hello World" is created.
+
+Because Java String is used heavily in passwords, file paths, URLs, class names, and HashMap keys.
+
+If String were mutable:
+
+    -Its value could be changed unexpectedly → security risk
+    -Multiple threads could modify the same String → thread-safety problems
+    -String pool/caching would be difficult → performance would decrease
+    -hashCode() could change after using it as a key → HashMap problems
+
+👉 Interview one-liner:
+“String is immutable to provide security, thread safety, string pooling, and reliable hashing.”
 
 
 
